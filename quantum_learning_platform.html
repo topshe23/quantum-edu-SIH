@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Emotion-Responsive Quantum Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+            font-size: 1.3em;
+        }
+
+        .emotion-meter {
+            margin: 10px 0;
+        }
+
+        .emotion-bar {
+            width: 100%;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .emotion-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .quantum-state {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .superposition-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .probability-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .probability-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .interaction-panel {
+            grid-column: span 3;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .simulation-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .sim-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .sim-button:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-color: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        .adaptations-list {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .adaptation-item {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .collapse-alert {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.02); }
+        }
+
+        .camera-feed {
+            width: 100%;
+            height: 200px;
+            background: #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        .status-optimal { background: #4CAF50; }
+        .status-struggling { background: #FF9800; }
+        .status-disengaged { background: #9E9E9E; }
+        .status-overwhelmed { background: #F44336; }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .analytics-panel {
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+        }
+
+        .progress-circle {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 8;
+        }
+
+        .progress-fill {
+            fill: none;
+            stroke: #4CAF50;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .interaction-panel {
+                grid-column: span 1;
+            }
+            
+            .analytics-panel {
+                grid-template-columns: 1fr;
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Emotion-Responsive Quantum Learning Platform</h1>
+            <p>Revolutionary AI that adapts teaching based on emotions + quantum superposition learning</p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Emotion Detection Panel -->
+            <div class="card">
+                <h3>🎭 Real-time Emotion Detection</h3>
+                <div class="camera-feed" id="cameraFeed">
+                    📹 Camera Feed (Simulated)
+                </div>
+                <div class="emotion-meter">
+                    <div class="emotion-bar">
+                        <div class="emotion-fill" id="happyBar" style="width: 0%;">Happy: 0%</div>
+                    </div>
+                    <div class="emotion-bar">
+                        <div class="emotion-fill" id="engagedBar" style="width: 0%;">Engaged: 0%</div>
+                    </div>
+                    <div class="emotion-bar">
+                        <div class="emotion-fill" id="confusedBar" style="width: 0%;">Confused: 0%</div>
+                    </div>
+                    <div class="emotion-bar">
+                        <div class="emotion-fill" id="frustratedBar" style="width: 0%;">Frustrated: 0%</div>
+                    </div>
+                    <div class="emotion-bar">
+                        <div class="emotion-fill" id="boredBar" style="width: 0%;">Bored: 0%</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <strong>Learning State: <span id="learningState">Neutral</span></strong>
+                </div>
+            </div>
+
+            <!-- Quantum Superposition Panel -->
+            <div class="card">
+                <h3>🔮 Quantum Learning States</h3>
+                <div class="quantum-state">
+                    <div class="superposition-item">
+                        <strong>Visual Learning</strong>
+                        <div class="probability-bar">
+                            <div class="probability-fill" id="visualProb" style="width: 33%;"></div>
+                        </div>
+                        <small id="visualPercent">33%</small>
+                    </div>
+                    <div class="superposition-item">
+                        <strong>Auditory Learning</strong>
+                        <div class="probability-bar">
+                            <div class="probability-fill" id="auditoryProb" style="width: 33%;"></div>
+                        </div>
+                        <small id="auditoryPercent">33%</small>
+                    </div>
+                    <div class="superposition-item">
+                        <strong>Kinesthetic Learning</strong>
+                        <div class="probability-bar">
+                            <div class="probability-fill" id="kinestheticProb" style="width: 34%;"></div>
+                        </div>
+                        <small id="kinestheticPercent">34%</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Adaptations Panel -->
+            <div class="card">
+                <h3>🤖 AI Adaptations</h3>
+                <p>Real-time teaching adjustments:</p>
+                <div class="adaptations-list" id="adaptationsList">
+                    <div class="adaptation-item">🎵 System initialized and ready</div>
+                </div>
+            </div>
+
+            <!-- Interactive Simulation Panel -->
+            <div class="interaction-panel">
+                <h3>🎮 Interactive Learning Simulation</h3>
+                <div class="simulation-controls">
+                    <button class="sim-button" onclick="simulateInteraction('confused')">😕 Student Confused</button>
+                    <button class="sim-button" onclick="simulateInteraction('engaged')">😊 Student Engaged</button>
+                    <button class="sim-button" onclick="simulateInteraction('bored')">😴 Student Bored</button>
+                    <button class="sim-button" onclick="simulateInteraction('frustrated')">😤 Student Frustrated</button>
+                    <button class="sim-button" onclick="simulateInteraction('optimal')">🌟 Optimal Learning</button>
+                    <button class="sim-button" onclick="resetSystem()">🔄 Reset System</button>
+                </div>
+                <div id="collapseAlert" style="display: none;"></div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="analytics-panel">
+                <div class="chart-container">
+                    <h3>📈 Learning Progress</h3>
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-circle" cx="60" cy="60" r="54"></circle>
+                        <circle class="progress-fill" cx="60" cy="60" r="54" 
+                                stroke-dasharray="339.292" stroke-dashoffset="339.292" id="progressCircle"></circle>
+                    </svg>
+                    <div><strong>Success Rate: <span id="successRate">0%</span></strong></div>
+                    <div>Engagement Score: <span id="engagementScore">0%</span></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>🎯 Quantum Collapse Status</h3>
+                    <div style="font-size: 3em; margin: 20px 0;" id="collapseEmoji">🔮</div>
+                    <div><strong>Status: <span id="collapseStatus">Superposition Active</span></strong></div>
+                    <div>Optimal Style: <span id="optimalStyle">Analyzing...</span></div>
+                    <div>Confidence: <span id="confidence">0%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // System state
+        let systemState = {
+            emotions: {
+                happy: 0,
+                engaged: 0,
+                confused: 0,
+                frustrated: 0,
+                bored: 0
+            },
+            quantumState: {
+                visual: 0.33,
+                auditory: 0.33,
+                kinesthetic: 0.34
+            },
+            collapsed: false,
+            interactions: 0,
+            totalSuccess: 0,
+            totalEngagement: 0,
+            adaptations: []
+        };
+
+        // Simulation scenarios
+        const scenarios = {
+            confused: {
+                emotions: { happy: 0.1, engaged: 0.2, confused: 0.8, frustrated: 0.6, bored: 0.1 },
+                interaction: { type: 'clicked_image', engagement: 0.3, success: 0.4 },
+                description: "Student initially confused about photosynthesis concept"
+            },
+            engaged: {
+                emotions: { happy: 0.7, engaged: 0.9, confused: 0.1, frustrated: 0.0, bored: 0.0 },
+                interaction: { type: 'completed_activity', engagement: 0.9, success: 0.8 },
+                description: "Student fully engaged with interactive plant simulation"
+            },
+            bored: {
+                emotions: { happy: 0.2, engaged: 0.1, confused: 0.2, frustrated: 0.1, bored: 0.8 },
+                interaction: { type: 'read_text', engagement: 0.2, success: 0.3 },
+                description: "Student loses interest with text-heavy content"
+            },
+            frustrated: {
+                emotions: { happy: 0.1, engaged: 0.3, confused: 0.5, frustrated: 0.9, bored: 0.2 },
+                interaction: { type: 'failed_quiz', engagement: 0.4, success: 0.2 },
+                description: "Student struggling with complex concepts"
+            },
+            optimal: {
+                emotions: { happy: 0.8, engaged: 0.9, confused: 0.1, frustrated: 0.0, bored: 0.0 },
+                interaction: { type: 'mastered_concept', engagement: 0.9, success: 0.95 },
+                description: "Student achieving optimal learning flow state"
+            }
+        };
+
+        // Update emotion bars
+        function updateEmotionBars(emotions) {
+            Object.keys(emotions).forEach(emotion => {
+                const percentage = Math.round(emotions[emotion] * 100);
+                const bar = document.getElementById(emotion + 'Bar');
+                if (bar) {
+                    bar.style.width = percentage + '%';
+                    bar.textContent = `${emotion.charAt(0).toUpperCase() + emotion.slice(1)}: ${percentage}%`;
+                }
+            });
+
+            // Update learning state
+            updateLearningState(emotions);
+        }
+
+        // Update learning state indicator
+        function updateLearningState(emotions) {
+            const indicator = document.getElementById('statusIndicator');
+            const stateText = document.getElementById('learningState');
+            
+            if (emotions.engaged > 0.6 && emotions.happy > 0.3) {
+                indicator.className = 'status-indicator status-optimal';
+                stateText.textContent = 'Optimal';
+            } else if (emotions.confused > 0.5 || emotions.frustrated > 0.4) {
+                indicator.className = 'status-indicator status-struggling';
+                stateText.textContent = 'Struggling';
+            } else if (emotions.bored > 0.6) {
+                indicator.className = 'status-indicator status-disengaged';
+                stateText.textContent = 'Disengaged';
+            } else if (emotions.frustrated > 0.7) {
+                indicator.className = 'status-indicator status-overwhelmed';
+                stateText.textContent = 'Overwhelmed';
+            } else {
+                indicator.className = 'status-indicator';
+                stateText.textContent = 'Neutral';
+            }
+        }
+
+        // Update quantum probabilities
+        function updateQuantumState(interactions) {
+            let newState = {...systemState.quantumState};
+
+            // Update based on interaction type
+            if (interactions.type === 'clicked_image' || interactions.type === 'mastered_concept') {
+                newState.visual *= (1 + interactions.success * 0.3);
+            } else if (interactions.type === 'completed_activity') {
+                newState.kinesthetic *= (1 + interactions.success * 0.3);
+            } else if (interactions.type === 'read_text') {
+                if (interactions.success < 0.5) {
+                    newState.visual *= 1.2; // Reading failed, try visual
+                }
+            }
+
+            // Normalize probabilities
+            const total = newState.visual + newState.auditory + newState.kinesthetic;
+            Object.keys(newState).forEach(key => {
+                newState[key] /= total;
+            });
+
+            systemState.quantumState = newState;
+
+            // Update UI
+            ['visual', 'auditory', 'kinesthetic'].forEach(style => {
+                const percentage = Math.round(newState[style] * 100);
+                document.getElementById(style + 'Prob').style.width = percentage + '%';
+                document.getElementById(style + 'Percent').textContent = percentage + '%';
+            });
+
+            // Check for quantum collapse
+            const maxProb = Math.max(...Object.values(newState));
+            if (maxProb > 0.7 && !systemState.collapsed) {
+                triggerQuantumCollapse();
+            }
+        }
+
+        // Generate AI adaptations based on emotions
+        function generateAdaptations(emotions, learningState) {
+            const adaptations = [];
+
+            if (emotions.frustrated > 0.6) {
+                adaptations.push("🎵 Switching to calmer, slower voice tone");
+                adaptations.push("😌 Providing encouragement: 'ਤੁਸੀਂ ਬਹੁਤ ਚੰਗਾ ਕੰਮ ਕਰ ਰਹੇ ਹੋ! (You're doing great!)'");
+            }
+
+            if (emotions.bored > 0.6) {
+                adaptations.push("⚡ Increasing energy and adding gamification");
+                adaptations.push("🎮 Launching interactive village farming simulation");
+            }
+
+            if (emotions.confused > 0.7) {
+                adaptations.push("🔄 Simplifying explanation with rural Punjab analogies");
+                adaptations.push("🗣️ Switching to step-by-step Punjabi explanation");
+            }
+
+            if (emotions.engaged > 0.8) {
+                adaptations.push("🚀 Increasing difficulty - student ready for advanced concepts");
+                adaptations.push("🎯 Preparing university-level content");
+            }
+
+            if (learningState === 'struggling') {
+                adaptations.push("📚 Providing peer learning connection with successful rural student");
+            } else if (learningState === 'disengaged') {
+                adaptations.push("🌟 Sharing local success story: 'Meet Simran from nearby village...'");
+            }
+
+            return adaptations;
+        }
+
+        // Add adaptations to UI
+        function displayAdaptations(adaptations) {
+            const container = document.getElementById('adaptationsList');
+            
+            adaptations.forEach((adaptation, index) => {
+                setTimeout(() => {
+                    const item = document.createElement('div');
+                    item.className = 'adaptation-item';
+                    item.textContent = adaptation;
+                    container.appendChild(item);
+                    
+                    // Remove old adaptations to keep list manageable
+                    if (container.children.length > 8) {
+                        container.removeChild(container.firstChild);
+                    }
+                }, index * 300);
+            });
+
+            systemState.adaptations = [...systemState.adaptations, ...adaptations];
+        }
+
+        // Trigger quantum collapse
+        function triggerQuantumCollapse() {
+            systemState.collapsed = true;
+            const optimalStyle = Object.keys(systemState.quantumState).reduce((a, b) => 
+                systemState.quantumState[a] > systemState.quantumState[b] ? a : b
+            );
+            const confidence = Math.round(systemState.quantumState[optimalStyle] * 100);
+
+            // Show collapse alert
+            const alert = document.getElementById('collapseAlert');
+            alert.innerHTML = `
+                <div class="collapse-alert">
+                    ⚡ QUANTUM COLLAPSE OCCURRED! ⚡<br>
+                    🎯 Optimal Learning Style Determined: <strong>${optimalStyle.toUpperCase()}</strong><br>
+                    📊 Confidence Level: <strong>${confidence}%</strong><br>
+                    🚀 Personalizing all future content for maximum effectiveness!
+                </div>
+            `;
+            alert.style.display = 'block';
+
+            // Update collapse status panel
+            document.getElementById('collapseEmoji').textContent = '⚡';
+            document.getElementById('collapseStatus').textContent = 'COLLAPSED';
+            document.getElementById('optimalStyle').textContent = optimalStyle.charAt(0).toUpperCase() + optimalStyle.slice(1);
+            document.getElementById('confidence').textContent = confidence + '%';
+
+            displayAdaptations([
+                `🎯 QUANTUM COLLAPSE: Optimal style is ${optimalStyle}`,
+                `🚀 All future content will be ${optimalStyle}-optimized`,
+                `📊 Confidence level: ${confidence}% - System highly certain`
+            ]);
+        }
+
+        // Update analytics
+        function updateAnalytics() {
+            const avgSuccess = systemState.interactions > 0 ? 
+                Math.round((systemState.totalSuccess / systemState.interactions) * 100) : 0;
+            const avgEngagement = systemState.interactions > 0 ? 
+                Math.round((systemState.totalEngagement / systemState.interactions) * 100) : 0;
+
+            document.getElementById('successRate').textContent = avgSuccess + '%';
+            document.getElementById('engagementScore').textContent = avgEngagement + '%';
+
+            // Update progress circle
+            const circumference = 2 * Math.PI * 54;
+            const offset = circumference - (avgSuccess / 100) * circumference;
+            document.getElementById('progressCircle').style.strokeDashoffset = offset;
+        }
+
+        // Main simulation function
+        function simulateInteraction(scenarioType) {
+            const scenario = scenarios[scenarioType];
+            if (!scenario) return;
+
+            console.log(`🎭 Simulating: ${scenario.description}`);
+
+            // Update emotions
+            systemState.emotions = scenario.emotions;
+            updateEmotionBars(scenario.emotions);
+
+            // Update quantum state
+            updateQuantumState(scenario.interaction);
+
+            // Update analytics
+            systemState.interactions++;
+            systemState.totalSuccess += scenario.interaction.success;
+            systemState.totalEngagement += scenario.interaction.engagement;
+            updateAnalytics();
+
+            // Generate and display adaptations
+            const learningState = document.getElementById('learningState').textContent;
+            const adaptations = generateAdaptations(scenario.emotions, learningState);
+            displayAdaptations(adaptations);
+
+            // Simulate camera feed update
+            const cameraFeed = document.getElementById('cameraFeed');
+            cameraFeed.style.background = `linear-gradient(135deg, 
+                rgba(${Math.round(scenario.emotions.happy * 255)}, 
+                     ${Math.round(scenario.emotions.engaged * 255)}, 
+                     ${Math.round((1 - scenario.emotions.confused) * 255)}, 0.7), 
+                rgba(0,0,0,0.3))`;
+            cameraFeed.innerHTML = `📹 Analyzing: ${scenario.description}`;
+        }
+
+        // Reset system
+        function resetSystem() {
+            systemState = {
+                emotions: { happy: 0, engaged: 0, confused: 0, frustrated: 0, bored: 0 },
+                quantumState: { visual: 0.33, auditory: 0.33, kinesthetic: 0.34 },
+                collapsed: false,
+                interactions: 0,
+                totalSuccess: 0,
+                totalEngagement: 0,
+                adaptations: []
+            };
+
+            // Reset UI
+            updateEmotionBars(systemState.emotions);
+            updateQuantumState({type: 'reset', success: 0, engagement: 0});
+            updateAnalytics();
+
+            document.getElementById('adaptationsList').innerHTML = 
+                '<div class="adaptation-item">🎵 System reset and ready for new session</div>';
+            document.getElementById('collapseAlert').style.display = 'none';
+            document.getElementById('cameraFeed').style.background = '#333';
+            document.getElementById('cameraFeed').innerHTML = '📹 Camera Feed (Simulated)';
+
+            // Reset collapse status
+            document.getElementById('collapseEmoji').textContent = '🔮';
+            document.getElementById('collapseStatus').textContent = 'Superposition Active';
+            document.getElementById('optimalStyle').textContent = 'Analyzing...';
+            document.getElementById('confidence').textContent = '0%';
+        }
+
+        // Initialize system
+        window.onload = function() {
+            updateEmotionBars(systemState.emotions);
+            updateAnalytics();
+            
+            // Add some initial demo adaptations
+            setTimeout(() => {
+                displayAdaptations([
+                    "🌟 Welcome! System initialized for rural Punjab student",
+                    "📚 Loading Grade 10 Science: Photosynthesis module",
+                    "🔮 Quantum superposition active - analyzing optimal learning style"
+                ]);
+            }, 1000);
+        };
+    </script>
+
+<!-- Add to your quantum_learning_platform.html -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+<script src="quantum_frontend_connector.js"></script>
+
+</body>
+</html>
